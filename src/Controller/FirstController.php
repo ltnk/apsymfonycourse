@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FirstController extends AbstractController
 
 {
-
     /**
-     * @Route('/', name='index')
+     * @Route("", name="index")
      */
     public function index()
     {
@@ -20,12 +19,12 @@ class FirstController extends AbstractController
     }
 
     /**
-     * @Route('/products', name='products')
+     * @Route("/products", name="products")
      */
     function showProducts(ProductRepository $productRepository)
     {
         $products = $productRepository->findAll();
-        return $this->render('test.html.twig', ['products' => $products]);
+        return $this->render('product.html.twig', ['products' => $products]);
     }
 
     /**
