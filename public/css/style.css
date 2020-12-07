@@ -1,0 +1,22 @@
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  padding: 5px;
+}
+
+h1,
+.card {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.badge-secondary {
+  background-color: rosybrown;
+}
+
+img {
+  margin: auto;
+  width: 200px;
+}

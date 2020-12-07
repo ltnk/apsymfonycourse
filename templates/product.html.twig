@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
   <div class="container">
-    <div class="row" style="border: 1px solid black">
-      <div class="col" style="border: 1px solid red">
+    <div class="row" style="border: 1px solid white">
+      <div class="col">
         {% for item in products %}
-          {{ item.name }}
-          <br />
-          {{ item.price }}
-          <br />
-          {{ item.slug }}
-          <br />
-          <br />
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">
+                Product : {{ item.name }}
+              </h5>
+              <p class="card-text">
+                Slug : {{ item.slug }}
+              </p>
+              <p>
+                Price : {{ item.price }}
+              </p>
+            </div>
+          </div>
         {% endfor %}
       </div>
     </div>
