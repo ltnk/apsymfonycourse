@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Category;
-use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class CategoryController extends AbstractController
@@ -25,17 +29,34 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/add", name="addCategory")
      */
-    public function addCategory()
+    public function addCategory(Request $request, EntityManagerInterface $em): Response
     {
-        // Ajouter une catégorie manuellement 
-        /*         $em = $this->getDoctrine()->getManager();
         $category = new Category;
-        $category->setName('Xiaomi')->setDescription('Made in China')->setSlug('xiaomi');
 
-        $em->persist($category);
+        $builder = $this->createFormBuilder();
+        $builder->add('name', TextType::class)
+        ->add('description', TextType::class)
+        ->add('slug', TextType::class)
+        ->add('save', SubmitType::class, ['label'=> 'Add category']);
 
-        $em->flush();
-        */
-        return $this->render('category/add-category.html.twig', []); 
+        $form = $builder->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&& $form->isValid()){
+            $data = $form->getData();
+            // dd($data);
+            $category = new Category;
+            $category->setName($data['name'])
+            ->setDescription($data['description'])
+            ->setSlug($data['slug']);
+
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirectToRoute('success');
+        }
+
+        return $this->render('product/add-product.html.twig', ['form' => $form->createView(),]);
     }
 }

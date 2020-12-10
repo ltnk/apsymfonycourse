@@ -8,7 +8,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class FirstController extends AbstractController
+class IndexController extends AbstractController
 
 {
     /**
