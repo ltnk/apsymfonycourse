@@ -18,23 +18,8 @@
           <span class="sr-only">(current)</span>
         </a>
       </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/category">Categories</a>
-      </li>
 
-       <li class="nav-item">
-        <a class="nav-link" href="/category/add">Add Cat</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-link" href="/product">Products</a>
-      </li>
-      
-       <li class="nav-item">
-        <a class="nav-link" href="/product/add">Add Prod</a>
-      </li>
-      {#       <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"
           href="#"
           id="navbarDropdown"
@@ -42,15 +27,26 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
-          Dropdown
+          Category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="/category">See all categories</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/category/1/all">Apple</a>
+          <a class="dropdown-item" href="/category/2/all">Samsung</a>
         </div>
-      </li> #}
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/category/add">Add Cat</a>
+      </li>
+
+      <li class="nav-item"><a class="nav-link" href="/product">Products</a></li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/product/add">Add Prod</a>
+      </li>
+
       {#       <li class="nav-item">
         <a class="nav-link disabled"
           href="#"

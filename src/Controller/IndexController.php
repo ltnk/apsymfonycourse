@@ -35,19 +35,5 @@ class IndexController extends AbstractController
         return $this->render('error.html.twig');
     }
 
-    /**
-     * @Route("/category/list", name="categoriesList")
-     */
-    public function categoryList()
-    {
-        return $this->render('category/index.html.twig');
-    }
 
-    /**
-     * @Route("/products/list", name="productsList")
-     */
-    public function productsList()
-    {
-        return $this->render('productsList.html.twig');
-    }
 }

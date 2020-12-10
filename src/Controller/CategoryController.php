@@ -36,7 +36,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/add", name="addCategory")
      */
-    public function addCategory(Request $request, EntityManagerInterface $em): Response
+    public function addCategory(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em): Response
     {
 
         $category = new Category;
@@ -49,7 +49,9 @@ class CategoryController extends AbstractController
             $em->persist($category);
             $em->flush();
 
-            return $this->redirectToRoute('success');
+            // Go directly on the page category after removing the category
+            $categories = $categoryRepository->findAll();
+            return $this->render('category/index.html.twig', ['categories' => $categories]);
         }
 
         return $this->render('category/add-category.html.twig', ['form' => $form->createView()]);
@@ -80,6 +82,8 @@ class CategoryController extends AbstractController
 
             $em->persist($category);
             $em->flush();
+
+            // Go to success page after editing the category
             return $this->redirectToRoute('success');
         }
 
@@ -94,15 +98,16 @@ class CategoryController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $category = $categoryRepository->find($id);
 
-        // If categories has no products
+        // If a category has products, the category cannot be delete
         try {
             $em->remove($category);
             $em->flush();
-            return $this->redirectToRoute('success');
+
+            // Go directly on the page category after removing the category
+            $categories = $categoryRepository->findAll();
+            return $this->render('category/index.html.twig', ['categories' => $categories]);
         } catch (\Exception $e) {
             return $this->redirectToRoute('error');
         };
-
-        
     }
 }
