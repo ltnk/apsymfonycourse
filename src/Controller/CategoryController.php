@@ -56,6 +56,16 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/detailed-category/{id}", name="detailedCategory")
+     */
+    function detailedCategory(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em, $id)
+    {
+        $category = $categoryRepository->find($id);
+        return $this->render('category/detailed-category.html.twig', ['category' => $category]);
+    }
+
+
+    /**
      * @Route("/category/edit/{id}", name="editCategory")
      */
     public function editCategory(Request $request, EntityManagerInterface $em, $id, Category $category)
@@ -74,5 +84,25 @@ class CategoryController extends AbstractController
         }
 
         return $this->render('category/edit-category.html.twig', ['form' => $form->createView(),]);
+    }
+
+    /**
+     * @Route("/deleteCategory/{id}", name="deleteCategory")
+     */
+    function deleteCategory(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $category = $categoryRepository->find($id);
+
+        // If categories has no products
+        try {
+            $em->remove($category);
+            $em->flush();
+            return $this->redirectToRoute('success');
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('error');
+        };
+
+        
     }
 }

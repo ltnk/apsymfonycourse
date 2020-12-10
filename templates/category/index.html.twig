@@ -1,38 +1,80 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <div class="container">
+    <table class="table">
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Slug
+        </th>
+        <th>
+          Voir plus
+        </th>
+        <th>
+          Modifier
+        </th>
+        <th>
+          Supprimer
+        </th>
+      </tr>
 
-        <table class="table">
+      {% for category in categories %}
         <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Slug</th>
-            <th>Editer</th>
-            <th>Supprimer</th>
+          <td>
+            {{ category.name }}
+          </td>
+          <td>
+            {{ category.description }}
+          </td>
+          <td>
+            {{ category.slug }}
+          </td>
+
+              <td>
+            <a href="{{
+              path(
+                'detailedCategory',
+                {
+                  id: category.id
+                }
+              )
+              }}">
+              Voir plus
+            </a>
+          </td>
+
+          <td>
+            <a href="{{
+              path(
+                'editCategory',
+                {
+                  id: category.id
+                }
+              )
+              }}">
+              Editer la catégorie
+            </a>
+          </td>
+
+              <td>
+            <a href="{{
+              path(
+                'deleteCategory',
+                {
+                  id: category.id
+                }
+              )
+              }}">
+              Supprimer
+            </a>
+          </td>
         </tr>
-
-        {% for category in categories %}
-        <tr>
-            <td>
-                {{category.name}}
-            </td>
-            <td>
-                {{category.description}}
-            </td>
-            <td>
-                {{category.slug}}
-            </td>
-            <td>
-                <a href="{{path('editCategory', {'id':category.id})}}">Editer la catégorie</a>
-            </td>
-
-                        <td>
-                <a href="{{path('editCategory', {'id':category.id})}}">Editer la catégorie</a>
-            </td>
-        </tr>
-
-        {% endfor %}
+      {% endfor %}
     </table>
-
   </div>
 {% endblock %}

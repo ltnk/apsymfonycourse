@@ -2,61 +2,79 @@
 
 {% block body %}
   <div class="container">
-
     <table class="table">
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Prix
+        </th>
+        <th>
+          Slug
+        </th>
+        <th>
+          Voir plus
+        </th>
+        <th>
+            Modifier
+          </th>
+        <th>
+          Supprimer
+        </th>
+      </tr>
+
+      {% for product in products %}
         <tr>
-            <th>Nom</th>
-            <th>Prix</th>
-            <th>Slug</th>
-            <th>Editer</th>
-            <th>Supprimer</th>
+          <td>
+            {{ product.name }}
+          </td>
+          <td>
+            {{ product.price }}
+          </td>
+          <td>
+            {{ product.slug }}
+          </td>
+          <td>
+            <a href="{{
+              path(
+                'detailedProducts',
+                {
+                  id: product.id
+                }
+              )
+              }}">
+              Voir plus
+            </a>
+          </td>
+
+          <td>
+            <a href="{{
+              path(
+                'editProduct',
+                {
+                  id: product.id
+                }
+              )
+              }}">
+              Modifier
+            </a>
+          </td>
+
+          <td>
+            <a href="{{
+              path(
+                'deleteProduct',
+                {
+                  id: product.id
+                }
+              )
+              }}">
+              Supprimer
+            </a>
+          </td>
         </tr>
-
-        {% for product in products %}
-        <tr>
-            <td>
-                {{product.name}}
-            </td>
-            <td>
-                {{product.price}}
-            </td>
-            <td>
-                {{product.slug}}
-            </td>
-            <td>
-                <a href="{{path('detailedProducts', {'id':product.id})}}">Voir plus</a>
-            </td>
-
-                        <td>
-                            <a href="{{path('deleteProduct', {'id':product.id})}}">Supprimer</a>
-            </td>
-        </tr>
-
-        {% endfor %}
+      {% endfor %}
     </table>
-
-
-    <div class="row" style="border: 1px solid white">
-      <div class="col">
-        {% for item in products %}
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">
-                Product : {{ item.name }}
-              </h5>
-              <p class="card-text">
-                Slug : {{ item.slug }}
-              </p>
-              <p>
-                Price : {{ item.price }}
-              </p>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-
-
   </div>
 {% endblock %}

@@ -44,36 +44,13 @@ class ProductController extends AbstractController
      */
     function addProducts(Request $request, EntityManagerInterface $em): Response
     {
+
         $product = new Product;
-
-        $builder = $this->createFormBuilder();
-        $builder->add('name', TextType::class)
-            ->add('price', IntegerType::class)
-            ->add('slug', TextType::class)
-            ->add(
-                'category',
-                EntityType::class,
-                [
-                    'class' => Category::class,
-                    'choice_label' => 'Name',
-                    'placeholder' => 'Choose a category',
-                    'label' => 'Category',
-                ]
-            )
-            ->add('save', SubmitType::class, ['label' => 'Add product']);
-
-        $form = $builder->getForm();
+        $form = $this->createForm(ProductFormType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            // dd($data);
-            $product = new Product;
-            $product->setName($data['name'])
-                ->setPrice($data['price'])
-                ->setSlug($data['slug'])
-                ->setCategory($data['category']);
 
             $em->persist($product);
             $em->flush();
@@ -81,7 +58,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('success');
         }
 
-        return $this->render('product/add-product.html.twig', ['form' => $form->createView(),]);
+        return $this->render('product/add-product.html.twig', ['form' => $form->createView()]);
     }
 
 
@@ -92,6 +69,27 @@ class ProductController extends AbstractController
     {
         $product = $productRepository->find($id);
         return $this->render('product/detailed-product.html.twig', ['product' => $product]);
+    }
+
+    /**
+     * @Route("/product/edit/{id}", name="editProduct")
+     */
+    public function editProduct(Request $request, EntityManagerInterface $em, $id, Product $product)
+    {
+        $product = $em->getRepository(Product::class)->find($id);
+        $form = $this->createForm(ProductFormType::class, $product);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('success');
+        }
+
+        return $this->render('category/edit-category.html.twig', ['form' => $form->createView(),]);
+     
     }
 
     /**
