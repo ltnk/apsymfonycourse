@@ -2,10 +2,6 @@
   font-family: 'Quicksand', sans-serif;
 }
 
-body {
-  padding: 5px;
-}
-
 h1,
 .card {
   margin: 10px auto;
@@ -13,7 +9,7 @@ h1,
 }
 
 .badge-secondary {
-  background-color: rosybrown;
+  background-color: rgb(94, 106, 173);
 }
 
 img {

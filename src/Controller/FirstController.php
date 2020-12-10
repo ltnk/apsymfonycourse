@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,20 +20,10 @@ class FirstController extends AbstractController
     }
 
     /**
-     * @Route("/products", name="products")
+     * @Route("/success", name="success")
      */
-    function showProducts(ProductRepository $productRepository)
+    public function success()
     {
-        $products = $productRepository->findAll();
-        return $this->render('product.html.twig', ['products' => $products]);
-    }
-
-    /**
-     * @Route("/category", name="category")
-     */
-    public function category(CategoryRepository $categoryRepository)
-    {
-        $categories = $categoryRepository->findAll();
-        return $this->render('category.html.twig', ['categories' => $categories]);
+        return $this->render('success.html.twig');
     }
 }
