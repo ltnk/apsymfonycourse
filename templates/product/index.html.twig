@@ -2,6 +2,40 @@
 
 {% block body %}
   <div class="container">
+
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Slug</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+
+        {% for product in products %}
+        <tr>
+            <td>
+                {{product.name}}
+            </td>
+            <td>
+                {{product.price}}
+            </td>
+            <td>
+                {{product.slug}}
+            </td>
+            <td>
+                <a href="{{path('detailedProducts', {'id':product.id})}}">Voir plus</a>
+            </td>
+
+                        <td>
+                            <a href="{{path('deleteProduct', {'id':product.id})}}">Supprimer</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+
     <div class="row" style="border: 1px solid white">
       <div class="col">
         {% for item in products %}
@@ -21,5 +55,8 @@
         {% endfor %}
       </div>
     </div>
+
+
+
   </div>
 {% endblock %}

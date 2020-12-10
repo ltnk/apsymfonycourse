@@ -18,7 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryController extends AbstractController
 {
-
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -61,6 +60,19 @@ class CategoryController extends AbstractController
      */
     public function editCategory(Request $request, EntityManagerInterface $em, $id, Category $category)
     {
-        dd($category);
+
+        $category = $em->getRepository(Category::class)->find($id);
+        $form = $this->createForm(CategoryFormType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('success');
+        }
+
+        return $this->render('category/edit-category.html.twig', ['form' => $form->createView(),]);
     }
 }

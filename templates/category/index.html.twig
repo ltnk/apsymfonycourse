@@ -1,28 +1,38 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <div class="container">
-    <div class="row" style="border: 1px solid white">
-     
 
-     <div class="col">
-        {% for item in categories %}
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">
-                Product : {{ item.name }}
-              </h5>
-              <p class="card-text">
-                Slug : {{ item.slug }}
-              </p>
-              <p>
-                Description : {{ item.description }}
-              </p>
-            </div>
-          </div>
+        <table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Slug</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+
+        {% for category in categories %}
+        <tr>
+            <td>
+                {{category.name}}
+            </td>
+            <td>
+                {{category.description}}
+            </td>
+            <td>
+                {{category.slug}}
+            </td>
+            <td>
+                <a href="{{path('editCategory', {'id':category.id})}}">Editer la catégorie</a>
+            </td>
+
+                        <td>
+                <a href="{{path('editCategory', {'id':category.id})}}">Editer la catégorie</a>
+            </td>
+        </tr>
+
         {% endfor %}
-     </div>
+    </table>
 
-     
-    </div>
   </div>
 {% endblock %}
