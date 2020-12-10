@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryFormType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,35 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('success');
         }
 
-        return $this->render('product/add-product.html.twig', ['form' => $form->createView(),]);
+        return $this->render('product/add-category.html.twig', ['form' => $form->createView(),]);
+    }
+
+
+    /**
+     * @Route("/category/edit/{id}", name="editCategory")
+     */
+    public function editCategory(Request $request, EntityManagerInterface $em, $id)
+    {
+        $category = $em->getRepository(Category::class)->find($id);
+
+        $form = $this->createForm(CategoryFormType::class, $category);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&& $form->isValid()){
+            $data = $form->getData();
+
+            $category = new Category;
+            $category->setName($data['name'])
+            ->setDescription($data['description'])
+            ->setSlug($data['slug']);
+
+            $em->persist($category);
+            $em->flush();
+
+            // return $this->redirectToRoute('success');
+        }
+
+        return $this->render('product/add-category.html.twig', ['form' => $form->createView(),]);
     }
 }
