@@ -17,7 +17,7 @@ class ProductFormType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('slug')
+            ->add('slug') 
             ->add('img')
             ->add(
                 'category',
@@ -36,6 +36,7 @@ class ProductFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
+
         ]);
     }
 }

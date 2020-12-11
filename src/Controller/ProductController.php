@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormFactoryInterface;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
@@ -42,16 +42,16 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="addProducts")
      */
-    function addProducts(Request $request, EntityManagerInterface $em): Response
+    function addProducts(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-
         $product = new Product;
         $form = $this->createForm(ProductFormType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $product->setSlug($slugger->slug($product->getName()));
+            
             $em->persist($product);
             $em->flush();
 
