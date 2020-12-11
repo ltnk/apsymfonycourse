@@ -18,6 +18,7 @@ class ProductFormType extends AbstractType
             ->add('name')
             ->add('price')
             ->add('slug')
+            ->add('img')
             ->add(
                 'category',
                 EntityType::class,

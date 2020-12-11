@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- 
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">
-          Product : {{ product.name }}
-        </h5>
-        <p class="card-text">
-          Slug : {{ product.slug }}
-        </p>
-        <p>
-          Price : {{ product.price }}
-        </p>
-      </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">
+        Product : {{ product.name }}
+      </h5>
+      <p class="card-text">
+        Slug : {{ product.slug }}
+      </p>
+      <p>
+        Price : {{ product.price }}
+      </p>
+      <p>
+        <img src="{{ product.img }}" alt="image-du-téléphone" />
+      </p>
     </div>
-
+  </div>
 {% endblock %}
