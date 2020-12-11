@@ -19,6 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
@@ -42,8 +44,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="addProducts")
      */
-    function addProducts(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    function addProducts(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
+        $path = $appKernel->getProjectDir() . '/public';
+
+
         $product = new Product;
         $form = $this->createForm(ProductFormType::class, $product);
 
@@ -51,7 +56,26 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setSlug($slugger->slug($product->getName()));
-            
+
+            $file = $form['img']->getData();
+
+            if ($file) {
+                // récup nom de fichier sans extension
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                // set nom dans la propriété Img
+                $product->setImg($newFilename);
+
+                // Déplacer le fichier dans le répertoire public + sous répertoire
+
+                try {
+                    $file->move($path, $newFilename);
+                } catch (FileException $e) {
+                    echo $e->getMessage();
+                }
+            };
+
             $em->persist($product);
             $em->flush();
 
@@ -89,7 +113,6 @@ class ProductController extends AbstractController
         }
 
         return $this->render('category/edit-category.html.twig', ['form' => $form->createView(),]);
-     
     }
 
     /**

@@ -12,8 +12,9 @@
     {{ form_label(form.price, 'prix')}}
     {{ form_widget(form.price, {'attr': {'maxlength': '50'}})}}
 
-    {{ form_label(form.img, 'Image')}}
-    {{ form_widget(form.img, {'attr': {'maxlength': '255'}})}}
+    {{ form_label(form.img,'Image') }}
+    {{ form_label(form.img,'') }}
+    {{ form_widget(form.img,{'attr':{'maxlength':'255'}}) }}
 
     {{ form_label(form.category, 'Categorie')}}
     {{ form_widget(form.category, {'attr': {'maxlength': '50'}})}}
