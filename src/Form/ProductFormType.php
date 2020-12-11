@@ -16,6 +16,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 class ProductFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -26,13 +29,13 @@ class ProductFormType extends AbstractType
             ->add('slug', TextType::class)
             ->add('img', FileType::class, [
                 'required' => false,
-
+                'mapped' =>false,
                 'label' => 'produit',
                 'attr' => [
                     'placeholder' => 'nom image'
                 ],
                 'constraints' => [
-                    new File([
+                    new Assert\File([
                         'maxSize' => '40096k',
                         'mimeTypes' => [
                             'image/jpeg',

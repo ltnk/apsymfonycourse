@@ -19,6 +19,9 @@
     {{ form_label(form.category, 'Categorie')}}
     {{ form_widget(form.category, {'attr': {'maxlength': '50'}})}}
 
+    {{ form_label(form.slug, 'Slug')}}
+    {{ form_widget(form.slug)}}
+
     {{ form_label(form.save, 'Add')}}
     {{ form_widget(form.save)}}
 

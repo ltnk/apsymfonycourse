@@ -24,4 +24,18 @@
 
     {{ form_end(form, {'render_rest':false})}}
   </div>
+
+  <!-- Script pour changer le lien quand on a mis une img -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var fichierRecto = document.querySelector('#product_form_img')
+        var labelRecto = fichierRecto.nextElementSibling
+
+        fichierRecto.addEventListener('change', function (e) {
+            const fileName = fichierRecto.value;
+            labelRecto.innerHTML = fileName;
+        })
+
+    });
+  </script>
 {% endblock %}
