@@ -36,14 +36,8 @@
             {{ product.slug }}
           </td>
           <td>
-            <a href="{{
-              path(
-                'detailedProducts',
-                {
-                  id: product.id
-                }
-              )
-              }}">
+            <a href="{{ path('detailedProducts',
+                { id: product.id ,slug: product.slug }) }}">
               Voir plus
             </a>
           </td>

@@ -1,3 +1,10 @@
+<style>
+span{
+  color: transparent;
+}
+
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">ApSymfony</a>
   <button class="navbar-toggler"
@@ -13,12 +20,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" href="/">
           Home
           <span class="sr-only">(current)</span>
         </a>
       </li>
 
+
+      {% if app.user %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"
           href="#"
@@ -46,17 +58,30 @@
       <li class="nav-item">
         <a class="nav-link" href="/product/add">Add Prod</a>
       </li>
-
-      {#       <li class="nav-item">
-        <a class="nav-link disabled"
-          href="#"
-          tabindex="-1"
-          aria-disabled="true">
-          Disabled
-        </a>
-      </li> #}
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    {% endif %}
+
+    {% if app.user %}
+      <div class="d-flex form-inline my-2 my-lg-0">
+        <p class="d-flex form-inline my-2 my-lg-0">
+          Bonjour {{ app.user.username }} <span class="span">_</span>
+        </p>
+
+        <button class="btn btn-warning my-2 my-sm-0" type="submit">
+          <a href="{{ path('app_logout') }}">Logout</a>
+        </button>
+      </div>
+    {% endif %}
+
+    {% if app.user is null %}
+      <div class="d-flex form-inline my-2 my-lg-0">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">
+          <a href="{{ path('app_login') }}">Login</a>
+        </button>
+      </div>
+    {% endif %}
+
+    <!--      <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2"
         type="search"
         placeholder="Search"
@@ -64,6 +89,6 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
         Search
       </button>
-    </form>
+    </form>  -->
   </div>
 </nav>

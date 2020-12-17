@@ -78,14 +78,7 @@ class ProductController extends AbstractController
     }
 
 
-    /**
-     * @Route("/detailed-product/{id}", name="detailedProducts")
-     */
-    function detailedProducts(SluggerInterface $slugger, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, $id)
-    {
-        $product = $productRepository->find($id);
-        return $this->render('product/detailed-product.html.twig', ['product' => $product]);
-    }
+
 
     /**
      * @Route("/product/edit/{id}", name="editProduct")
@@ -150,6 +143,10 @@ class ProductController extends AbstractController
         $em->remove($product);
         $em->flush();
 
-        return $this->redirectToRoute('success');
+        $this->addFlash('success', 'Produit effacé avec succès');
+
+        // return $this->redirectToRoute('success');
+        $products = $productRepository->findAll();
+        return $this->render('product/index.html.twig', ['products' => $products]);
     }
 }

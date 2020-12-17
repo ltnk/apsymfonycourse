@@ -25,7 +25,7 @@ class CategoryController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @Route("/category", name="category")
+     * @Route("/admin/category", name="category")
      */
     public function ShowCategory(CategoryRepository $categoryRepository)
     {

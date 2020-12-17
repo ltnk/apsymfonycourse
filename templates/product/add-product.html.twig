@@ -28,14 +28,16 @@
   <!-- Script pour changer le lien quand on a mis une img -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var fichierRecto = document.querySelector('#product_form_img')
-        var labelRecto = fichierRecto.nextElementSibling
+        let fichierRecto = document.querySelector('#product_form_img')
+        let labelRecto = fichierRecto.nextElementSibling
 
         fichierRecto.addEventListener('change', function (e) {
             const fileName = fichierRecto.value;
-            labelRecto.innerHTML = fileName;
+            labelRecto.innerHTML = fileName.split('\\')[fileName.split('\\').length-1];
         })
 
     });
   </script>
 {% endblock %}
+
+

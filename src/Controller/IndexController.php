@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +15,18 @@ class IndexController extends AbstractController
     /**
      * @Route("", name="index")
      */
-    public function index()
+    public function index(ProductRepository $productRepository)
     {
-        return $this->render('base.html.twig');
+        $products = $productRepository->findAll();
+        return $this->render('index.html.twig', ['products' => $products]);
+    }
+
+    /**
+     * @Route("/detailed-product/{id}-{slug}", name="detailedProducts")
+     */
+    function detailedProducts(Product $product)
+    {
+        return $this->render('product/detailed-product.html.twig', ['product' => $product]);
     }
 
     /**
@@ -34,6 +44,4 @@ class IndexController extends AbstractController
     {
         return $this->render('error.html.twig');
     }
-
-
 }
