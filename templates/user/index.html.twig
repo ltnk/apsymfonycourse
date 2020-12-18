@@ -1,21 +1,29 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Users{% endblock %}
+
 {% block body %}
+
   <div class="container">
     <table class="table">
       <tr>
         <th>
           Email
         </th>
-
         <th>
-          Voir plus
+          Mdp
         </th>
         <th>
-            Modifier
-          </th>
+          Role
+        </th>
         <th>
-          Supprimer
+          
+        </th>
+        <th>
+          
+        </th>
+        <th>
+          
         </th>
       </tr>
 
@@ -24,26 +32,28 @@
           <td>
             {{ user.email }}
           </td>
-
           <td>
-            <a href="">
-              Voir plus
-            </a>
+            {{ user.password }}
+          </td>
+          <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+
+              <td>
+            <a href="{{ path('showUser', {'id': user.id}) }}">voir</a>
           </td>
 
           <td>
-            <a href="">
-              Modifier
-            </a>
+            <a href="{{ path('editUser', {'id': user.id}) }}">modifier</a>
           </td>
 
-          <td>
-            <a href="">
-              Supprimer
+              <td>
+            <a href="{{path('deleteUser', {'id': user.id})}}">
+              supprimer
             </a>
           </td>
         </tr>
       {% endfor %}
     </table>
   </div>
+
 {% endblock %}
+
