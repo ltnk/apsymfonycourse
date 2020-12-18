@@ -29,8 +29,21 @@ span{
         </a>
       </li>
 
+      {% if is_granted('ROLE_ADMIN') %}
+      <li>
+        <a class="nav-link" href="/profile/users">
+          Users
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" href="/register">
+          Register
+        </a>
+      </li>
+      {% endif %} 
 
-      {% if app.user %}
+      {% if is_granted('ROLE_STAFF') %}
+      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"
           href="#"
